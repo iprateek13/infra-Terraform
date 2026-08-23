@@ -1,0 +1,20 @@
+vnets={
+    vnet1={
+        name="vnet1"
+        location="eastus"
+        resource_group_name="rg1"
+        address_space=["10.0.0.0/16"]
+        tags={
+            environment="Production"
+        }
+    }
+    vnet2={
+        name="vnet2"
+        location="eastus"
+        resource_group_name="rg1"
+        address_space=["10.0.0.1/16"]
+        tags={
+            environment="testing"
+        }
+    }
+}
