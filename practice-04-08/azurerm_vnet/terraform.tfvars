@@ -1,0 +1,14 @@
+vnets={
+    vnet1={
+        name="vnet1"
+        location="eastus"
+        resource_group_name="rg-mono"
+        address_space=["10.0.1.0/16"]
+    }
+    vnet2={
+        name="vnet2"
+        location="eastus"
+        resource_group_name="rg-mono"
+        address_space=["10.0.2.0/16"]
+    }
+}

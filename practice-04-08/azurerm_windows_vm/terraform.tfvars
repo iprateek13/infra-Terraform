@@ -1,0 +1,22 @@
+windows_nics={
+    nic1={
+        nic_name="nic1"
+        resource_group_name="rg-mono"
+        ip_name="ip1"
+    }
+}
+windows_vms={
+    vm1={
+        vm_name="vm1"
+        vm_size="Standard_F2"
+        admin_username="adminuser"
+        admin_password="P@$$w0rd1234!"
+        os_disk_caching="ReadWrite"
+        os_disk_storage_account_type="Standard_LRS"
+        disable_password_authentication=false
+        source_image_reference_publisher="MicrosoftWindowsServer"
+        source_image_reference_offer="WindowsServer"
+        source_image_reference_sku="2016-Datacenter"
+        source_image_reference_version="latest"
+    }
+}

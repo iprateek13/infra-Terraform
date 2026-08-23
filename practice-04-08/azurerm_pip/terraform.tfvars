@@ -1,0 +1,14 @@
+pips={
+    pip1={
+        nic_name="pip1"
+        resource_group_name="rg-mono"
+        allocation_method="static"
+        environment="dev"
+    }
+    pip2={
+        nic_name="pip2"
+        resource_group_name="rg-mono"
+        allocation_method="static"
+        environment="dev"
+    }
+}
