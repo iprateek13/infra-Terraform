@@ -1,0 +1,4 @@
+rgs = {
+  indiarg = "centralindia"
+
+}
