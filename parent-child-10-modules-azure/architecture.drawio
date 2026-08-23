@@ -1,0 +1,134 @@
+<mxfile host="65bd71144e">
+    <diagram id="azure-landing-zone-architecture" name="Azure Landing Zone Resource Flow">
+        <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="950" background="#ffffff" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                
+                <!-- Main Canvas Header Box -->
+                <mxCell id="root_box" value="Azure Landing Zone Architecture (parent-child-10-modules-azure)" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=35;horizontal=1;fillColor=#0078D4;strokeColor=#005A9E;strokeWidth=2;fontStyle=1;fontSize=18;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="20" width="1340" height="880" as="geometry"/>
+                </mxCell>
+                
+                <!-- Left Container: Parent Module Environments -->
+                <mxCell id="parent_box" value="Parent Module Environments (Deployment Entry Points)" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=30;horizontal=1;fillColor=#F3F2F1;strokeColor=#B3B0AD;strokeWidth=2;fontStyle=1;fontSize=14;fontColor=#323130;" parent="root_box" vertex="1">
+                    <mxGeometry x="30" y="60" width="280" height="790" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="env_dev" value="&lt;b&gt;dev/ Environment&lt;/b&gt;&lt;br&gt;[terraform.tfvars | main.tf]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=#005A9E;fontColor=#ffffff;fontSize=13;" parent="parent_box" vertex="1">
+                    <mxGeometry x="20" y="60" width="240" height="80" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="env_test" value="&lt;b&gt;test/ Environment&lt;/b&gt;&lt;br&gt;[terraform.tfvars | main.tf]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF8C00;strokeColor=#D13438;fontColor=#ffffff;fontSize=13;" parent="parent_box" vertex="1">
+                    <mxGeometry x="20" y="320" width="240" height="80" as="geometry"/>
+                </mxCell>
+                
+                <mxCell id="env_prod" value="&lt;b&gt;prod/ Environment&lt;/b&gt;&lt;br&gt;[terraform.tfvars | main.tf]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#107C41;strokeColor=#0B5A30;fontColor=#ffffff;fontSize=13;" parent="parent_box" vertex="1">
+                    <mxGeometry x="20" y="580" width="240" height="80" as="geometry"/>
+                </mxCell>
+
+                <!-- Right Container: Azure Landing Zone Child Modules & Flow -->
+                <mxCell id="lz_box" value="Azure Landing Zone Child Modules (4-Tier Architectural Flow)" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=30;horizontal=1;fillColor=#E1F5FE;strokeColor=#0288D1;strokeWidth=2;fontStyle=1;fontSize=15;fontColor=#01579B;" parent="root_box" vertex="1">
+                    <mxGeometry x="340" y="60" width="970" height="790" as="geometry"/>
+                </mxCell>
+
+                <!-- TIER 1: Governance & Management Layer -->
+                <mxCell id="tier1_box" value="1. Governance &amp; Management Layer" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=25;horizontal=1;fillColor=#E0F7FA;strokeColor=#00838F;fontStyle=1;fontSize=13;fontColor=#006064;" parent="lz_box" vertex="1">
+                    <mxGeometry x="30" y="40" width="910" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_rg" value="azurerm_resource_group&lt;br&gt;&lt;small&gt;(Foundation Resource Containers)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0078D4;strokeColor=#005A9E;fontColor=#ffffff;fontStyle=1;fontSize=13;" parent="tier1_box" vertex="1">
+                    <mxGeometry x="280" y="40" width="350" height="50" as="geometry"/>
+                </mxCell>
+
+                <!-- TIER 2: Security & Shared Services Layer -->
+                <mxCell id="tier2_box" value="2. Security &amp; Shared Services Layer" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=25;horizontal=1;fillColor=#FFF3E0;strokeColor=#EF6C00;fontStyle=1;fontSize=13;fontColor=#E65100;" parent="lz_box" vertex="1">
+                    <mxGeometry x="30" y="170" width="910" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_law" value="azurerm_log_analytics_workspace&lt;br&gt;&lt;small&gt;(Central Audit Logging)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008272;strokeColor=#004D40;fontColor=#ffffff;fontStyle=1;" parent="tier2_box" vertex="1">
+                    <mxGeometry x="30" y="45" width="260" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_kv" value="azurerm_key_vault&lt;br&gt;&lt;small&gt;(Secrets &amp; Key Encryption)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D13438;strokeColor=#A80000;fontColor=#ffffff;fontStyle=1;" parent="tier2_box" vertex="1">
+                    <mxGeometry x="325" y="45" width="260" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_st" value="azurerm_storage_account&lt;br&gt;&lt;small&gt;(Diagnostics &amp; Storage Blobs)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#107C41;strokeColor=#0B5A30;fontColor=#ffffff;fontStyle=1;" parent="tier2_box" vertex="1">
+                    <mxGeometry x="620" y="45" width="260" height="60" as="geometry"/>
+                </mxCell>
+
+                <!-- TIER 3: Network Infrastructure Layer -->
+                <mxCell id="tier3_box" value="3. Network Infrastructure Layer" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=25;horizontal=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontStyle=1;fontSize=13;fontColor=#1B5E20;" parent="lz_box" vertex="1">
+                    <mxGeometry x="30" y="320" width="910" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_vnet" value="azurerm_virtual_network&lt;br&gt;&lt;small&gt;(Hub/Spoke VNet Space)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5C2D91;strokeColor=#3B1470;fontColor=#ffffff;fontStyle=1;" parent="tier3_box" vertex="1">
+                    <mxGeometry x="40" y="40" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_snet" value="azurerm_subnet&lt;br&gt;&lt;small&gt;(Tier Subnet Segments)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5C2D91;strokeColor=#3B1470;fontColor=#ffffff;fontStyle=1;" parent="tier3_box" vertex="1">
+                    <mxGeometry x="40" y="140" width="240" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_nsg" value="azurerm_network_security_group&lt;br&gt;&lt;small&gt;(Firewall Rule Specs)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D13438;strokeColor=#A80000;fontColor=#ffffff;fontStyle=1;" parent="tier3_box" vertex="1">
+                    <mxGeometry x="330" y="90" width="250" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_pip" value="azurerm_public_ip&lt;br&gt;&lt;small&gt;(Public IP Allocation)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008272;strokeColor=#004D40;fontColor=#ffffff;fontStyle=1;" parent="tier3_box" vertex="1">
+                    <mxGeometry x="630" y="90" width="240" height="60" as="geometry"/>
+                </mxCell>
+
+                <!-- TIER 4: Compute & Workload Layer -->
+                <mxCell id="tier4_box" value="4. Compute Workload Layer" style="shape=swimlane;whiteSpace=wrap;html=1;startSize=25;horizontal=1;fillColor=#F3E5F5;strokeColor=#7B1FA2;fontStyle=1;fontSize=13;fontColor=#4A148C;" parent="lz_box" vertex="1">
+                    <mxGeometry x="30" y="570" width="910" height="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_nic" value="azurerm_network_interface&lt;br&gt;&lt;small&gt;(Network Adapter Card)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008272;strokeColor=#004D40;fontColor=#ffffff;fontStyle=1;" parent="tier4_box" vertex="1">
+                    <mxGeometry x="150" y="70" width="260" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="m_vm" value="azurerm_linux_virtual_machine&lt;br&gt;&lt;small&gt;(Enterprise Workload Instance)&lt;/small&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF8C00;strokeColor=#D13438;fontColor=#ffffff;fontStyle=1;fontSize=13;" parent="tier4_box" vertex="1">
+                    <mxGeometry x="500" y="70" width="280" height="70" as="geometry"/>
+                </mxCell>
+
+                <!-- DEPENDENCY & EXECUTION ARROWS -->
+                <!-- RG to Tier 2 & Tier 3 -->
+                <mxCell id="arrow_rg_law" parent="lz_box" source="m_rg" target="m_law" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0078D4;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow_rg_kv" parent="lz_box" source="m_rg" target="m_kv" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0078D4;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow_rg_st" parent="lz_box" source="m_rg" target="m_st" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0078D4;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- VNet to Subnet -->
+                <mxCell id="arrow_vnet_snet" parent="tier3_box" source="m_vnet" target="m_snet" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#5C2D91;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- Subnet & PIP to NIC -->
+                <mxCell id="arrow_snet_nic" parent="lz_box" source="m_snet" target="m_nic" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2E7D32;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow_pip_nic" parent="lz_box" source="m_pip" target="m_nic" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#008272;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- NIC, KV, ST to VM -->
+                <mxCell id="arrow_nic_vm" parent="tier4_box" source="m_nic" target="m_vm" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7B1FA2;strokeWidth=3;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow_st_vm" parent="lz_box" source="m_st" target="m_vm" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#107C41;strokeWidth=2;dashed=1;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow_kv_vm" parent="lz_box" source="m_kv" target="m_vm" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#D13438;strokeWidth=2;dashed=1;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+
+                <!-- Parent Env connections to Landing Zone -->
+                <mxCell id="arrow_dev_lz" parent="root_box" source="env_dev" target="lz_box" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0078D4;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow_test_lz" parent="root_box" source="env_test" target="lz_box" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF8C00;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow_prod_lz" parent="root_box" source="env_prod" target="lz_box" edge="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#107C41;strokeWidth=2;">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
