@@ -1,0 +1,126 @@
+```yaml
+name: Terraform PR Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: github-actionsTry-21-08/parent-modules
+
+jobs:
+  terraform-pr:
+    name: Terraform PR Validation & Security Scan
+    runs-on: [self-hosted, windows, x64]
+
+    steps:
+
+      # ============================================================
+      # 1. CHECKOUT
+      # ============================================================
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+
+      # ============================================================
+      # 2. TERRAFORM VERSION
+      # ============================================================
+
+      - name: Terraform Version
+        run: terraform version
+
+
+      # ============================================================
+      # 3. SECRET SCANNING
+      # ============================================================
+
+      - name: Gitleaks Secret Scan
+        working-directory: .
+        run: gitleaks detect --source . --redact
+
+      - name: TruffleHog Secret Scan
+        working-directory: .
+        run: trufflehog filesystem . --results=verified,unknown
+
+
+      # ============================================================
+      # 4. AZURE LOGIN
+      # ============================================================
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: |
+            {
+              "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
+              "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
+              "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
+              "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
+            }
+
+
+      # ============================================================
+      # 5. TERRAFORM INIT
+      # ============================================================
+
+      - name: Terraform Init
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        run: terraform init
+
+
+      # ============================================================
+      # 6. TERRAFORM FORMAT
+      # ============================================================
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+
+      # ============================================================
+      # 7. TERRAFORM VALIDATE
+      # ============================================================
+
+      - name: Terraform Validate
+        run: terraform validate
+
+
+      # ============================================================
+      # 8. TFSEC SECURITY SCAN
+      # ============================================================
+
+      - name: tfsec Scan
+        working-directory: .
+        run: tfsec github-actionsTry-21-08/parent-modules
+
+
+      # ============================================================
+      # 9. TERRASCAN SECURITY SCAN
+      # ============================================================
+
+      - name: Terrascan Scan
+        working-directory: .
+        run: terrascan scan -i terraform -d github-actionsTry-21-08/parent-modules
+
+
+      # ============================================================
+      # 10. TERRAFORM PLAN
+      # ============================================================
+
+      - name: Terraform Plan
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        run: terraform plan
+```
