@@ -7,7 +7,7 @@ resource_groups = {
 
 storage_accounts = {
   "storage_account_1" = {
-    name                     = "storageaccount"
+    name                     = "merahaiyestorage"
     resource_group_name      = "resource_group_1"
     location                 = "West Europe"
     account_tier             = "Standard"
