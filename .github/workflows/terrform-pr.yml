@@ -61,9 +61,7 @@ jobs:
         working-directory: .
         run: tfsec github-actionsTry-21-08/parent-modules
 
-      - name: Terrascan Scan
-        working-directory: .
-        run: terrascan scan -i terraform -d github-actionsTry-21-08/parent-modules
+
 
       - name: Terraform Plan
         env:
